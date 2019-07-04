@@ -51,12 +51,12 @@ const Signup = () => {
         return dispatch({
             type: SIGN_UP_REQUEST,
             data: {
-                id,
+                userId: id,
                 password,
-                nick,
+                nicnname: nick,
             },
         });
-    }, [password, passwordCheck, term]);
+    }, [id, nick, password, passwordCheck, term]);
 
     const onChangePasswordChk = useCallback((e) => {
         setPasswordError(e.target.value !== password);
@@ -98,7 +98,7 @@ const Signup = () => {
                     {termError && <div style={{ color:'red'}}>약관에 동의하셔야 합니다</div>}
                 </div>
                 <div style={{ marginTop: 10 }}>
-                    <Button type="primary" htmlType="submit">가입하기</Button>
+                    <Button type="primary" htmlType="submit" loading={isSigningUp}>가입하기</Button>
                 </div>
             </Form>
         </>
