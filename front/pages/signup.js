@@ -53,7 +53,7 @@ const Signup = () => {
             data: {
                 userId: id,
                 password,
-                nicnname: nick,
+                nickname: nick,
             },
         });
     }, [id, nick, password, passwordCheck, term]);

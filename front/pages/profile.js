@@ -1,19 +1,19 @@
 import React from 'react';
-import { List, Button, Card, Icon } from 'antd'
-import NicknameEditForm from "../components/NicknameEditForm";
+import { Button, List, Card, Icon } from 'antd';
+import NicknameEditForm from '../components/NicknameEditForm';
 
 const Profile = () => {
-    return(
-        <>
+    return (
+        <div>
             <NicknameEditForm />
             <List
                 style={{ marginBottom: '20px' }}
                 grid={{ gutter: 4, xs: 2, md: 3 }}
                 size="small"
-                header={<div>팔로잉목록</div>}
-                loadMore={<Button style={{ width: '100%'}}>더 보기</Button>}
+                header={<div>팔로잉 목록</div>}
+                loadMore={<Button style={{ width: '100%' }}>더 보기</Button>}
                 bordered
-                dataSource={['박정원', '박주형', '김수빈']}
+                dataSource={['제로초', '바보', '노드버드오피셜']}
                 renderItem={item => (
                     <List.Item style={{ marginTop: '20px' }}>
                         <Card actions={[<Icon key="stop" type="stop" />]}><Card.Meta description={item} /></Card>
@@ -24,18 +24,18 @@ const Profile = () => {
                 style={{ marginBottom: '20px' }}
                 grid={{ gutter: 4, xs: 2, md: 3 }}
                 size="small"
-                header={<div>팔로워목록</div>}
-                loadMore={<Button style={{ width: '100%'}}>더 보기</Button>}
+                header={<div>팔로워 목록</div>}
+                loadMore={<Button style={{ width: '100%' }}>더 보기</Button>}
                 bordered
-                dataSource={['박주형', '김수빈', '박정원']}
+                dataSource={['제로초', '바보', '노드버드오피셜']}
                 renderItem={item => (
                     <List.Item style={{ marginTop: '20px' }}>
                         <Card actions={[<Icon key="stop" type="stop" />]}><Card.Meta description={item} /></Card>
                     </List.Item>
                 )}
             />
-        </>
-    )
+        </div>
+    );
 };
 
 export default Profile;

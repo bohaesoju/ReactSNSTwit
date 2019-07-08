@@ -1,23 +1,22 @@
 const dummyUser = {
-    nickname: '보해소주',
+    nickname: '제로초',
     Post: [],
     Followings: [],
     Followers: [],
-    id: 1
+    id: 1,
 };
 
 export const initialState = {
-    isLoggedIn: false, //로그인여부
-    isLoggedOut: false, //로그아웃 시도중
-    isLoggingIn: false, //로그인 시도중
-    logInErrorReason: '', //로그인 실패 사유
-    isSignedUp: false, //회원 가입 성공
-    isSigningUp: false, //회원가입 시도중
-    signUpErrorReason: '', //회원가입 실패 사유
-    me: null, //내정보
-    followingList: [], //팔로잉 리스트
-    followerList: [], //팔로워 리스트
-    userInfo: null, //남의 정보
+    isLoggingOut: false, // 로그아웃 시도중
+    isLoggingIn: false, // 로그인 시도중
+    logInErrorReason: '', // 로그인 실패 사유
+    isSignedUp: false, // 회원가입 성공
+    isSigningUp: false, // 회원가입 시도중
+    signUpErrorReason: '', // 회원가입 실패 사유
+    me: null, // 내 정보
+    followingList: [], // 팔로잉 리스트
+    followerList: [], // 팔로워 리스트
+    userInfo: null, // 남의 정보
 };
 
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
@@ -28,13 +27,13 @@ export const LOG_IN_REQUEST = 'LOG_IN_REQUEST'; // 액션의 이름
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS'; // 액션의 이름
 export const LOG_IN_FAILURE = 'LOG_IN_FAILURE'; // 액션의 이름
 
-export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
-export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
-export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
-
 export const LOAD_USER_REQUEST = 'LOAD_USER_REQUEST';
 export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
 export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE';
+
+export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
+export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
+export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 
 export const LOAD_FOLLOW_REQUEST = 'LOAD_FOLLOW_REQUEST';
 export const LOAD_FOLLOW_SUCCESS = 'LOAD_FOLLOW_SUCCESS';
@@ -55,20 +54,19 @@ export const REMOVE_FOLLOWER_FAILURE = 'REMOVE_FOLLOWER_FAILURE';
 export const ADD_POST_TO_ME = 'ADD_POST_TO_ME';
 
 export default (state = initialState, action) => {
-    switch(action.type){
+    switch (action.type) {
         case LOG_IN_REQUEST: {
             return {
                 ...state,
                 isLoggingIn: true,
                 logInErrorReason: '',
-            }
+            };
         }
         case LOG_IN_SUCCESS: {
             return {
                 ...state,
-                isLoggingIn:false,
-                isLoggedIn: true,
-                me: dummyUser,
+                isLoggingIn: false,
+                me: action.data,
                 isLoading: false,
             };
         }
@@ -76,7 +74,6 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isLoggingIn: false,
-                isLoggedIn: false,
                 logInErrorReason: action.error,
                 me: null,
             };
@@ -84,7 +81,13 @@ export default (state = initialState, action) => {
         case LOG_OUT_REQUEST: {
             return {
                 ...state,
-                isLoggedIn: false,
+                isLoggingOut: true,
+            };
+        }
+        case LOG_OUT_SUCCESS: {
+            return {
+                ...state,
+                isLoggingOut: false,
                 me: null,
             };
         }
@@ -101,7 +104,7 @@ export default (state = initialState, action) => {
                 ...state,
                 isSigningUp: false,
                 isSignedUp: true,
-            }
+            };
         }
         case SIGN_UP_FAILURE: {
             return {
@@ -110,10 +113,26 @@ export default (state = initialState, action) => {
                 signUpErrorReason: action.error,
             };
         }
+        case LOAD_USER_REQUEST: {
+            return {
+                ...state,
+            };
+        }
+        case LOAD_USER_SUCCESS: {
+            return {
+                ...state,
+                me: action.data,
+            };
+        }
+        case LOAD_USER_FAILURE: {
+            return {
+                ...state,
+            };
+        }
         default: {
             return {
                 ...state,
-            }
+            };
         }
     }
 };
